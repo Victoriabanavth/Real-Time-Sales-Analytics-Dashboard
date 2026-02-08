@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Sales Analytics Dashboard | Victoria Banavath</title>
+    <meta name="description"
+        content="Interactive dashboard visualizing sales KPIs with drill-down filters, trend analysis, and automated anomaly detection.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <h1>Sales Analytics</h1>
+            </div>
+            <div class="header-actions">
+                <select id="timeRange" class="select-input">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                </select>
+                <button class="btn-refresh" onclick="refreshData()">
+                    <span>↻</span> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon revenue">💰</div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Total Revenue</span>
+                    <span class="kpi-value" id="totalRevenue">$0</span>
+                    <span class="kpi-change positive" id="revenueChange">+0%</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon orders">📦</div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Total Orders</span>
+                    <span class="kpi-value" id="totalOrders">0</span>
+                    <span class="kpi-change positive" id="ordersChange">+0%</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon customers">👥</div>
+                <div class="kpi-content">
+                    <span class="kpi-label">New Customers</span>
+                    <span class="kpi-value" id="newCustomers">0</span>
+                    <span class="kpi-change positive" id="customersChange">+0%</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon conversion">🎯</div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Conversion Rate</span>
+                    <span class="kpi-value" id="conversionRate">0%</span>
+                    <span class="kpi-change positive" id="conversionChange">+0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="charts-grid">
+            <div class="chart-card main-chart">
+                <div class="chart-header">
+                    <h3>Revenue Trend</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="dot revenue"></span> Revenue</span>
+                        <span class="legend-item"><span class="dot orders"></span> Orders</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper" style="height: 250px; position: relative;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Sales by Category</h3>
+                </div>
+                <div class="chart-wrapper" style="height: 200px; position: relative;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Top Products</h3>
+                </div>
+                <div class="chart-wrapper" style="height: 200px; position: relative;">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="table-section">
+            <div class="table-header">
+                <h3>Recent Transactions</h3>
+                <button class="btn-export" onclick="exportData()">📥 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="transactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built by <a href="https://victoriabanavath.com" target="_blank">Victoria Banavath</a> • Real-Time Sales
+                Analytics Dashboard</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
